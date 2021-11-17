@@ -8,13 +8,15 @@ const darkCodeTheme = require('prism-react-renderer/themes/dracula');
 const config = {
   title: 'Athens Research',
   tagline: 'Knowledge graphs are cool',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://athensresearch.github.io',
+baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
-  organizationName: 'athens', // Usually your GitHub org/user name.
-  projectName: 'athensresearch', // Usually your repo name.
+  organizationName: 'athensresearch', // Usually your GitHub org/user name.
+  projectName: 'docs', // Usually your repo name.
+  deploymentBranch: "gh-pages",
+  trailingSlash: false,
 
   presets: [
     [
