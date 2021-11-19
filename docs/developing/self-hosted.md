@@ -83,28 +83,30 @@ start the server and Bob's your unkle.
 
 You can create an Athens server without installing anything else via docker compose.
 
-Pick a [release](https://github.com/athensresearch/athens/releases) you'd like to use, download the `docker-compose.yml` file in the release to a folder, and then run `docker-compose up --detach` to run the services in the background.
+At any point, if any of the services fails to launch or something seems broken, you have two options to debug.
 
-For example, for `v1.0.0-alpha.rtc.43`:
+1. You can run `docker-compose ps`  to see all running services. You should see that services `fluree`, `athens`, and `nginx` are "up" and/or "healthy". ![docker-ps-output](https://user-images.githubusercontent.com/8952138/142656719-21c54b94-8f50-4091-9044-a72bac1988a2.png)
+2. Additionally, you can use `docker-compose logs SERVICE_NAME` to inspect what the problem is further.
+
+Pick a [release](https://github.com/athensresearch/athens/releases) you'd like to use and download the `docker-compose.yml`. For example, for `v1.0.0-alpha.rtc.43`:
 
 ```sh
 curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v1.0.0-alpha.rtc.43/docker-compose.yml
-docker-compose up --detach
 ```
-
-The server will be acessible at `localhost:80`, and all data will be saved at `./athens-data`.
-
-If any of the services fails to launch, you can use `docker-compose logs SERVICE_NAME` to inspect what the problem is. You can also run `docker-compose ps`  to see all running services. You should see that services `fluree`, `athens`, and `nginx` are up and `healthy`.
-
-The `fluree` service can fail to launch if it does not have enough permissions for the `./athens-data` folder.
-You can work around this particular failure more by manually creating the data folder and giving all users of the machine read and write access. This is not a long-term workaround, and we will have more constrained permissions before Athens RTC is beta.
+The `fluree` service fails to launch if it does not have enough permissions for the `./athens-data` folder. The current workaround for this is to manually create the data folder and give all users of the machine read and write access. This is not a long-term workaround, and we will have more constrained permissions before Athens RTC is available for general release.
 
 ```
 mkdir -p ./athens-data/fluree
 chmod -R 777 ./athens-data/fluree
 ```
 
-You can override the app configuration via an environment variable:
+Then, start Docker Compose!
+
+```
+docker-compose up --detach
+```
+
+If you want to configure a password, you can override the app configuration via an environment variable:
 
 ```sh
 CONFIG_EDN="{:password \"YourServerPassword\"}" docker-compose up
@@ -117,11 +119,14 @@ or via an `.env` file located in the same directory as the downloaded `docker-co
 CONFIG_EDN="{:password \"YourServerPassword\"}"
 ```
 
+Currently, the only server config we have is for the password. If you update the password, then clients that previously logged in will not have access unless. They must update the password on their end to get back in.
+
+### Updating Docker
 To update your deployment, curl the new `docker-compose.yml` file and restart docker-compose entirely:
 
 ```
 # curl a new version of Athens described by docker-compose
-curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v1.0.0-alpha.rtc.43/docker-compose.yml
+curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v1.0.0-alpha.rtc.44/docker-compose.yml
 
 # restart docker-compose
 docker-compose down
