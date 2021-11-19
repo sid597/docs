@@ -25,6 +25,7 @@ const sidebars = {
       label: 'Developing',
       items: [
         'developing/running',
+        'developing/self-hosted',
         'developing/repl',
         'developing/ci',
         'developing/git',
