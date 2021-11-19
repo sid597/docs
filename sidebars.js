@@ -33,7 +33,8 @@ const sidebars = {
         'developing/resources',
       ],
     },
-    "architecture"
+    "faq",
+    "architecture",
   ],
 
 };
