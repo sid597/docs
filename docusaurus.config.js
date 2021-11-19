@@ -9,7 +9,7 @@ const config = {
   title: 'Athens Research',
   tagline: 'Knowledge graphs are cool',
   url: 'https://athensresearch.github.io',
-baseUrl: '/docs/',
+  baseUrl: '/docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -26,7 +26,7 @@ baseUrl: '/docs/',
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
           // Please change this to your repo.
-          editUrl: 'https://github.com/facebook/docusaurus/edit/main/website/',
+          editUrl: 'https://github.com/athensresearch/docs/edit/main/',
           routeBasePath: "/",
         },
         theme: {
