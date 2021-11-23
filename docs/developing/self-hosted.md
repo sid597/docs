@@ -93,8 +93,9 @@ Pick a [release](https://github.com/athensresearch/athens/releases) you'd like t
 ```sh
 curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v1.0.0-alpha.rtc.43/docker-compose.yml
 ```
-The `fluree` service fails to launch if it does not have enough permissions for the `./athens-data` folder. The current workaround for this is to manually create the data folder and give all users of the machine read and write access. This is not a long-term workaround, and we will have more constrained permissions before Athens RTC is available for general release.
+On Linux, `fluree` fails to launch if it does not have enough permissions for the `./athens-data` folder. The current workaround for this is to manually create the data folder and give all users of the machine read and write access. This is not a long-term workaround, and we will have more constrained permissions before Athens RTC is available for general release.
 
+If you are on Mac, you can skip this workaround.
 ```
 mkdir -p ./athens-data/fluree
 chmod -R 777 ./athens-data/fluree
