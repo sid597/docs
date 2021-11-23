@@ -1,5 +1,19 @@
 # Self-Hosting Backend
 
+## Data Loss
+
+Our number one design principle is to never have data loss.
+
+All accounts of data loss will be documented publicly on our [GitHub Discussions](https://github.com/athensresearch/athens/discussions/categories/post-mortems).
+
+Our last (and only) account of data loss was in February 2021 on our local-only version of Athens, before we made a public release, posted by a developer contributor.
+
+When the self-hosted backend was in `alpha`, we had known issues of data loss, crashing, and freezing because the distributed events system being incomplete. We discovered and solved these issues internally as a team. We did not invite others to use this build during this period.
+
+Now we are in `beta`, meaning we are ready to open up Athens for beta testers. We don't have known issues with data loss, crashing, and freezing anymore, and the first implementation of the distributed events system is complete. That said, we need to open this up to beta at this point because we need more real-world testing in a variety of contexts beyond our own team of six to go from `beta` to `stable`.
+
+We've created two new Discord channels for feedback and help on 2.0.0-beta and data loss at **2.0.0-beta-feedback** and **#data-loss**, respectively. Join us on Discord [here](https://discord.gg/avzDmq3nah).
+
 ## Client
 
 To connect to an Athens server, you must know its remote address (an IP address, URL, or localhost) and its password. Skip to [server](#server) to setup a server first if you haven't yet.
