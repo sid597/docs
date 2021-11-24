@@ -22,19 +22,28 @@ const sidebars = {
     "intro",
     {
       type: 'category',
-      label: 'Developing',
+      label: 'User Guide',
       items: [
-        'developing/running',
-        'developing/self-hosted',
-        'developing/repl',
-        'developing/ci',
-        'developing/git',
-        'developing/storybook',
-        'developing/resources',
+        'user_guide/installation',
+        'user_guide/basics',
+        'user_guide/features',
+      ],
+    },
+    {
+      type: 'category',
+      label: 'Developer Guide',
+      items: [
+        'developer_guide/running',
+        'developer_guide/self-hosted',
+        'developer_guide/repl',
+        'developer_guide/ci',
+        'developer_guide/git',
+        'developer_guide/storybook',
+        'developer_guide/resources',
+        'developer_guide/architecture',
       ],
     },
     "faq",
-    "architecture",
   ],
 
 };
