@@ -1,6 +1,6 @@
 # Self-Hosting Backend
 
-## Data Loss
+## No Data Loss
 
 Our number one design principle is to never have data loss.
 
@@ -12,7 +12,7 @@ When the self-hosted backend was in `alpha`, we had known issues of data loss, c
 
 Now we are in `beta`, meaning we are ready to open up Athens for beta testers. We don't have known issues with data loss, crashing, and freezing anymore, and the first implementation of the distributed events system is complete. That said, we need to open this up to beta at this point because we need more real-world testing in a variety of contexts beyond our own team of six to go from `beta` to `stable`.
 
-We've created two new Discord channels for feedback and help on 2.0.0-beta and data loss at **2.0.0-beta-feedback** and **#data-loss**, respectively. Join us on Discord [here](https://discord.gg/avzDmq3nah).
+We invite feedback on anything and everything, don't be shy! We've created two new Discord channels, 2.0.0-beta and data loss at **2.0.0-beta-feedback** and **#data-loss**, respectively. [Join us on Discord!](https://discord.gg/avzDmq3nah)
 
 ## Client
 
