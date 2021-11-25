@@ -1,12 +1,5 @@
 # Basic Product Tour
 
-* Athens starts with a daily note
-* Write and create in blocks
-* Link between pages to build your graph
-* Create your own formatting
-* Drag, drop, and indent
-* Find everything in one command
-
 ## Athens starts with a daily note
 
 Every time you open Athens, you'll be in the daily note for that day. This is a unique page for that particular date, and while it seems like Athens wants you to write a traditional journal, you don't have to go down that route.
@@ -71,3 +64,10 @@ Hit `Ctrl`/`⌘`+`k` to search your new knowledge graph. If keyboard shortcuts a
 If you search for a page that doesn't exist, hit `Enter` or click **Create Page** to create a new page.
 
 
+## Get help inside Athens
+
+Press the question mark button on the right-side of the app toolbar to open up help within Athens!
+
+![help-menu-1](/img/help-menu-1.png)
+
+![help-menu-2](/img/help-menu-1.png)
