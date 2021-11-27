@@ -26,8 +26,7 @@ const sidebars = {
       items: [
         'user_guide/installation',
         'user_guide/basics',
-        'user_guide/features',
-        'user_guide/all',
+        'user_guide/feature-reference',
       ],
     },
     {
