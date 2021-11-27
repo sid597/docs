@@ -1,19 +1,24 @@
 # Features
 
-(WIP)
+### Help Menu
 
+Press the question mark button on the right side of the app toolbar to open up help within Athens!
 
-### all-pages
-### backups
-### bidirectional-links
-### block-embed
-### block-references
-### block
-### daily-notes
-### database-selection
-### graph-visualization
-### import
-### keyboard-shortcuts
-### page
-### slash-commands
+![help-menu-1](/img/help-menu-1.png)
+
+### App Toolbar
+
+### All pages
+### Backups
+### Bidirectional links
+### Block embed
+### Block references
+### Block
+### Daily notes
+### Database selection
+### Graph visualization
+### Import
+### Keyboard shortcuts
+### Page
+### Slash commands
 
