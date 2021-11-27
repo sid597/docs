@@ -8,21 +8,33 @@ The app toolbar is home to many of the controls in Athens. From left to right:
 - [Daily Notes](#daily-notes)
 - [All Pages](#all-pages)
 - [Graph Visualization](#graph-visualization)
-- [All Pages](#all-pages)
-- [Athena](#athena)
+- [Athena Command Prompt](#athena-command-prompt)
 - [Import](#import)
 - [Settings](#settings)
 - [Dark Mode](#dark-mode)
-- [Help Menu](#help-menu)
+- [Help Modal](#help-modal)
 - [Right Sidebar](#right-sidebar)
 
 ## Left Sidebar
 
-The left sidebar contains your list of favorites. (link to making a favorite)
+The left sidebar contains your list of shortcuts, which you could call your "Bookmarks" or "Favorite Pages". **(link to making a favorite)**
 
-The bottom contains your Athens client version number.
+The bottom contains your Athens client version number. Mention the version when getting help with bugs.
+
+![left-sidebar](/img/feature-reference/left-sidebar.png)
 
 ## Right Sidebar
+
+Shift-click page links, block references, or block bullets to open them in the right sidebar.
+You can also press `ctrl-o` when your cursor is focused on a block or page to open in the right sidebar.
+
+* Expand and collapse pages and blocks open in the right sidebar.
+* Resize the right sidebar by clicking on the left side of it.
+* Press the `X` to close a block or page when you no longer need it.
+* Whether the item is a block or a page is illustrated by its icon, a circle or a document.
+
+
+![right-sidebar](/img/feature-reference/right-sidebar.png)
 
 ## Backups
 
@@ -118,9 +130,7 @@ If you want to link to a page that doesn't yet exist, finish typing the title yo
 
 Once you move to a different block, the link syntax turns into an active bidirectional link.
 
-{% hint style="info" %}
 Links also work with either`#`, or `#[[]]` syntax, such as `#Website` or `#[[Website]].` These links function the same, but the outliner renders them in the default text color, and they use a `#` symbol instead of `[[Website]]` symbols.
-{% endhint %}
 
 ### Linked References
 
@@ -214,35 +224,40 @@ Click the pen icon in the top-right corner to change the source of a block embed
 
 To access your daily notes from anywhere in your graph, click on the calendar icon in the top panel or type `Alt/Option` + `d`. In this mode, Athens displays all your daily notes in a list that loads previous daily notes as you scroll down. As you reach the end of one note, the previous one loads.
 
-Any individual daily note is also accessible via search. Click the **Find or Create a Page** button or type `Ctrl/⌘` + `k`.
-
 ## DB Picker
 
-With Athens, each graph is its own database and because they are local, you can have as many databases as you want. In Athens, your database is stored on a file called “index.transit”. You can create, open and move databases from right within Athens. To access the database options, click the following icon on the toolbar.
+Within Athens, each graph is its own database. For local graphs, your database is stored on a file called “index.transit”. You can create, open and move databases from right within Athens.
 
-![Image](https://user-images.githubusercontent.com/80150109/118108910-2f350100-b3fe-11eb-8601-8a0c2f3aaf92.png)
+![db-picker](/img/feature-reference/db-picker.png)
 
-After clicking it, a popover will come up with three panes.
+After clicking "Add Database", a popover will come up with three panes.
 
 ![Athens Database](https://user-images.githubusercontent.com/80150109/118109143-6dcabb80-b3fe-11eb-9064-330b0d532372.png)
 
-### Creating a database
+#### Creating a database
 
 To create a database, in the pane that comes up, click the `New` button and specify a name for the database. Once you do this, click the `browse` button and navigate to where you want your database to be located. Hit `enter` and watch as your new database is created and launched.
 
 **Tip: You can back up your database to the cloud by setting the location of the database to your dropbox folder!**
 
-### Opening an existing database
+#### Opening an existing database
 
 On the “Open” pane of the database popup, click the `Open` button and navigate to the location of the index.transit file you want to load into Athens.
 
-### Moving a database
+#### Moving a database
 
 On the “Open” pane of the database popup, click the `Move` button and navigate to the new location you would like your database to be located in.
 
+#### Connecting to a database
+
+[Check-out our self-hosted docs for connecting to a remote database.](/developer_guide/self-hosted#client). Also try self-hosting your own graph(s) with your friends and colleagues!
+
+
 ## Keyboard Shortcuts
 
-### Navigation
+**Tip: the list of keyboard shortcuts and formatting or accessible within Athens at the [Help Modal](#help-modal) **
+
+#### Navigation
 
 | Windows / Linux | macOS | Action |
 | :--- | :--- | :--- |
@@ -253,7 +268,7 @@ On the “Open” pane of the database popup, click the `Move` button and naviga
 | `Alt` + `←` | `Option` + `←` | Back |
 | `Alt` + `→` | `Option` + `→` | Forward |
 
-### Outliner and blocks
+#### Outliner and blocks
 
 | Windows / Linux | macOS | Action |
 | :--- | :--- | :--- |
@@ -264,7 +279,7 @@ On the “Open” pane of the database popup, click the `Move` button and naviga
 | `Ctrl` + `a` | `⌘` + `a` | Select all blocks on the page |
 | `Ctrl` + `Enter` | `⌘` + `Enter` | Create a new TODO or mark an existing TODO as done |
 
-### Text formatting
+#### Text formatting
 
 | Windows / Linux  | macOS | Action |
 | :--- | :--- | :--- |
@@ -273,7 +288,7 @@ On the “Open” pane of the database popup, click the `Move` button and naviga
 | `Ctrl` + `h` | `⌘` + `h` | Highlight |
 | `Ctrl` + `y` | `⌘` + `y` | Strikethrough |
 
-### Advanced
+#### Advanced
 
 | Windows / Linux | macOS | Action |
 | :--- | :--- | :--- |
@@ -286,8 +301,6 @@ Slash commands are quick way to access powerful features within the Athens app. 
 To access the slash commands, type a `/` to bring up the menu and continue typing to filter through the commands or scroll through them using a keyboard or mouse.
 
 ![Walkthrough](https://user-images.githubusercontent.com/80150109/122540545-607c9e80-d046-11eb-84c3-dfbd32a7db53.gif)
-
-### Current Slash Commands
 
 | Command | Function |
 | :--- | :--- |
@@ -311,11 +324,11 @@ To access the global graph view, click on the icon in the toolbar or use the glo
 
 ![Click the &quot;bubble&quot; icon in the toolbar](https://user-images.githubusercontent.com/80150109/120890171-979e8900-c61e-11eb-89b5-6f284299ef0f.png)
 
-### View customization in the graph view
+#### View customization in the graph view
 
 You can customize the graph's forces and choose to filter out the daily notes and orphan nodes. The forces of the graph can be manipulated by changing the link distance and the attraction force of the nodes in the graph under the forces menu in the right corner of the graph view. Under the nodes menu, you can choose to hide daily notes and/or orphan nodes and also change the number of links that are highlighted upon hovering of the individual nodes.
 
-### The local graph
+### The Local Graph
 
 The local graph is one of the most powerful aspects of the graph view in Athens and allows you to get a catch all view of the pages that are linked to the current page. It can even let you go a step further by showing you pages that are linked to the linked pages. It's excellent to identify similar topics and pages which you might not have considered as relevant.
 
@@ -323,7 +336,7 @@ To open the local graph, click the three dots next to the title of the page to r
 
 ![Open a local graph](https://user-images.githubusercontent.com/80150109/120890114-6d4ccb80-c61e-11eb-96ce-4a145423420d.png)
 
-### Customizing the local graph
+#### Customizing the local graph
 
 Similar to the global graph, you can customize the forces of the graph, but there is something that is local specific, the "local depth" option. This option is powerful because it not only allows you to find topics that you have directly linked in the page but also shows you the pages _linked_ to the pages you have directly linked.
 
@@ -331,3 +344,37 @@ Similar to the global graph, you can customize the forces of the graph, but ther
 
 In this image, you can also see notes that could be relevant to the food chain that you may not have explicitly thought about or linked to in the food chain page.
 
+
+## Dark Mode
+
+Toggle light and dark mode easily!
+
+## Settings
+
+If you are sponsoring Athens through OpenCollective, you can add your email. This doesn't create backups yet, but we hope to support this for our paying users.
+
+Opt-in and opt-out of usage and diagnostics.
+
+Change your [backup](#backups) frequency in intervals of 15.
+
+Reset settings to default. Settings are persisted in localStorage.
+
+![settings](/img/feature-reference/settings.png)
+
+## Help Modal
+
+The help modal contains a list of shortcuts and formatting tips, accessible within Athens.
+
+![help-modal](/img/help-menu-1.png)
+
+## Athena Command Prompt
+
+Press `ctrl-k` or press the button "Find or Create a Page" to begin searching through your graph. You can create a new page if no page titles match the search results.
+
+Type to filter your results. Press enter to open or `shift-enter` to open in the right sidebar. Click or `shift-click` to open in the primary view.
+
+## All Pages
+
+Get an overview of all your pages in Athens.
+
+![all-pages](/img/feature-reference/all-pages.jpg)
