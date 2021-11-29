@@ -102,10 +102,10 @@ At any point, if any of the services fails to launch or something seems broken, 
 1. You can run `docker-compose ps`  to see all running services. You should see that services `fluree`, `athens`, and `nginx` are "up" and/or "healthy". ![docker-ps-output](https://user-images.githubusercontent.com/8952138/142656719-21c54b94-8f50-4091-9044-a72bac1988a2.png)
 2. Additionally, you can use `docker-compose logs SERVICE_NAME` to inspect what the problem is further.
 
-Pick a [release](https://github.com/athensresearch/athens/releases) you'd like to use and download the `docker-compose.yml`. For example, for `v1.0.0-alpha.rtc.43`:
+Pick a [release](https://github.com/athensresearch/athens/releases) you'd like to use and download the `docker-compose.yml`. For example, for `v2.0.0-beta.3`:
 
 ```sh
-curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v1.0.0-alpha.rtc.43/docker-compose.yml
+curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v2.0.0-beta.3/docker-compose.yml
 ```
 On Linux, `fluree` fails to launch if it does not have enough permissions for the `./athens-data` folder. The current workaround for this is to manually create the data folder and give all users of the machine read and write access. This is not a long-term workaround, and we will have more constrained permissions before Athens RTC is available for general release.
 
@@ -141,7 +141,7 @@ To update your deployment, curl the new `docker-compose.yml` file and restart do
 
 ```
 # curl a new version of Athens described by docker-compose
-curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v1.0.0-alpha.rtc.44/docker-compose.yml
+curl -L -o docker-compose.yml https://github.com/athensresearch/athens/releases/download/v2.0.0-beta.3/docker-compose.yml
 
 # restart docker-compose
 docker-compose down
