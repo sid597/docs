@@ -172,7 +172,7 @@ Once your droplet has been created, open the console to ssh to the server, follo
 
 NOTE : Currently this is very hands-on implementation for the backup, please feel free to ask questions in our Discord server.
 
-### Prequisetes
+### Prerequisites
   To use backup one needs to have:
    - Athens cloned github repo
    - A cloud server e.g on Digital Ocean, AWS etc.
@@ -232,9 +232,9 @@ NOTE : Currently this is very hands-on implementation for the backup, please fee
  - log out of the serve: `ctrl-d`
  - Get the server log to local machine
      - NOTE : 
-       - Replace the "$REMOTE_IP" with the actual ip also 
-       - Replace the "$FILENAME" with the actual filename
-       - Replace the "$LOCAL_DIR" with the path of dir where you want to copy the save (Backup) file in your local machine.
+       - Replace the `"$REMOTE_IP"` with the actual ip also 
+       - Replace the `"$FILENAME"` with the actual filename
+       - Replace the `"$LOCAL_DIR"` with the path of dir where you want to copy the save (Backup) file in your local machine.
      - `scp root@"$REMOTE_IP"4:/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"`
 
 
