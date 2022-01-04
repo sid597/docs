@@ -168,76 +168,130 @@ Once your droplet has been created, open the console to ssh to the server, follo
 
 ![digital-ocean-console-and-ip-address](https://user-images.githubusercontent.com/8952138/141150925-9f8df004-faa0-4fbe-9875-c276d60c5118.jpg)
 
-## Backup your server 
+## Backup your server
 
-NOTE : Currently this is very hands-on implementation for the backup, please feel free to ask questions in our Discord server.
+The backup is very hands-on. Please feel free to ask questions in our Discord server or reach out to jeff@athensresearch.org if you are interested in a hosted version as a service.
 
-### Prequisetes
-  To use backup one needs to have:
-   - Athens github repo
-   - A cloud server e.g on Digital Ocean, AWS etc.
-     - If you are testing out this on local machine then please ignore some of the instructions starting with **RS:** (short for `remote server`) below
-   - A running athens server
+We call "Backups" "Save-Load" because our backups have 2 parts: saving/backing up and loading/restoring.
 
-### Save (Backup) your server
+### Prerequisites
 
-  - To backup your Athens server you need to the following steps:
-    - On the machine where you cloned Athens 
-      - goto Athens folder
-      - Compile and create save-load cli uberjar
-        - `yarn cli:compile`
-        - `yarn cli:uberjar`
-      - **RS:** get the remote server address e.g 123.456.78.9
-      - **RS:** send the compiled uberjar to remote server
-        - NOTE : Replace the "$REMOTE_IP" with the actual remote server address
-        - `rsync -xhavz --stats target/athens-cli.jar root@"$REMOTE_IP":~/athens-cli.jar`
-      - **RS:** send `save-cronjob.sh` to remote server
-        - NOTE : Replace the "$REMOTE_IP" with the actual ip
-        - `rsync -avzh script/save-cronjob.sh root@"$REMOTE_IP"167.71.33.149:save-cronjob.sh `
-      - **RS:** ssh into the remote server 
-        - **RS** ssh `root@"$REMOTE_IP"`
-        - **RS:** Do `ls` to check if `athens-cli.jar` and `save-cronjob.sh` files are present on the remote server, if not please 
-          go through the above steps again and if the problem still exists please ask us in the Discord.
-        - Set up an hourly cronjob for the Save (Backup)
-          - Run `crontab -e`
-          - Add the following line to the file that is opened after the above command:
-            - `0 */1 * * * ~/save-cronjob.sh`
-            - The above command will run the `save-cronjob.sh` script every hour and will save your fluree ledger (current source of truth)
-              to `/var/lib/athens/backups/` folder.
-            - To change the frequency of the backups, change the cronjob parameters accordingly. You can see the docs explaining cronjob command parameters by 
-              running the command `crontab -e`
-        - NOTE: After a couple of hours after setting up this cronjob please do check if the backups are happening by going to `/var/lib/athens/backups/`
+To backup your server, you need to have:
+- An [Athens repo](https://github.com/athensresearch/athens) cloned locally. We refer to this as **LC**, short for `local computer`, below.
+- A cloud server, for instance, hosted on [DigitalOcean](#digitalocean). We refer to this as **RS** short for `remote server`, below.
+
+### Save (Backup) Your Server
+
+To backup your Athens server you need to the following steps:
+
+**LC**
+
+- Clone Athens on your local computer
+
+```git clone git@github.com:athensresearch/athens.git```
+
+- Go to Athens folder
+
+```cd athens```
+
+- Compile the `save-load` command line utility.
+```
+yarn cli:compile
+yarn cli:uberjar
+```
+**RS**
+
+- Get the **remote server** address e.g `123.456.78.9`
+- Send the uberjar and script to remote server. Replace `"$REMOTE_IP"` with the actual remote server address.
+```
+rsync -xhavz --stats target/athens-cli.jar root@"$REMOTE_IP":~/athens-cli.jar
+rsync -avzh script/save-cronjob.sh root@"$REMOTE_IP"167.71.33.149:save-cronjob.sh
+```
+**LC**
+- ssh into the remote server
+```
+ssh root@"$REMOTE_IP"
+```
+
+- Check to see if `athens-cli.jar` and `save-cronjob.sh` files are present on the remote server
+
+```
+ls
+# expected output
+```
+
+Set up an hourly cronjob for the Save (Backup). This involves using crontab, a terminal user interface, to save your Fluree ledger, the source of truth (essentially the database) in self-hosted Athens.
+
+Backups are stored to the `/var/lib/athens/backups/` folder.
+
+- Open the crontab terminal user interface, which also contains documentation on its time parameters.
+```
+crontab -e
+```
+- Add the following line to the file: `0 */1 * * * ~/save-cronjob.sh`
+- To change the frequency of the backups, change the cronjob parameters accordingly, following the cronjob documentation shown after running `crontab -e`.
+- After at least an hour, check that backups are happening by going to `/var/lib/athens/backups/`.
 
 ### Load (Restore) your server from one of the backups
- 
- - Load (Restore) assumes that you have gone through the Save (Backup) process.
- - **RS** ssh into the remote server `ssh root@"$REMOTE_IP"`
-   - Stop the Athens server docker `docker-compose stop athens`
-   - Find the file that you want to restore from, if you did not change the default save directory then you can find all
-     the save (Backed up) files in `/var/lib/athens/backups`
-   - Load the file to Athens server `yarn cli:load -f "$FILENAME"` (Replace `"$FILENAME` with the correct filename)
+
+**LC**
+- ssh into the remote server.
+
+```ssh root@"$REMOTE_IP"```
+
+**RS**
+
+Stop the Athens server.
+
+```docker-compose stop athens```
+
+Find the file that you want to restore from.
+
+```
+ls /var/lib/athens/backups
+```
+
+You should see a list of files such as:
+```
+```
+
+Load the file to Athens server `yarn cli:load -f "$FILENAME"` (Replace `"$FILENAME` with the correct filename)
    - Follow the instructions outputted by the above command.
    - Restart the Athens server `docker-compose start athens`
-   - If you are not able to load (Restore) the file please go through the steps again and if the problem still exists then
-     let us know in our Discord server.
+   - If you are not able to load (Restore) the file please go through the steps again and if the problem still exists then let us know in our Discord server.
 
 ### Get the Saved (Backed up) to your local machine
- 
- - Here we assume that you have gone through the Save (Backup) process
- - **RS** ssh into the remote server
-   - `ssh root@IP`
- - goto `/var/lib/athens/backups` and find the name of file you want to get
-     - `cd /var/lib/athens/backups`
-     - `ls` : to see all the files and copy the filename
- - log out of the serve: `ctrl-d`
- - Get the server log to local machine
-     - NOTE : 
-       - Replace the "$REMOTE_IP" with the actual ip also 
-       - Replace the "$FILENAME" with the actual filename
-       - Replace the "$LOCAL_DIR" with the path of dir where you want to copy the save (Backup) file in your local machine.
-     - `rsync -avzh root@"$REMOTE_IP"46.101.61.240:/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"`
 
+Here we assume that you have gone through the Save (Backup) process
 
- 
+**RS**
 
+ssh into the remote server
 
+```
+ssh root@"$REMOTE_IP"
+```
+
+Go to `/var/lib/athens/backups` and find the name of file you want to get.
+
+```
+ls /var/lib/athens/backups
+```
+
+Log out of the server: `ctrl-d`
+
+Get the server log to local machine
+  + Replace the "$REMOTE_IP" with the actual ip also 
+  + Replace the "$FILENAME" with the actual filename
+  + Replace the "$LOCAL_DIR" with the path of dir where you want to copy the save (Backup) file in your local machine.
+
+```
+rsync -avzh root@"$REMOTE_IP":/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"
+```
+
+- use `scp` instead of `rsync`
+- next time reformat outliner to document
+- the **RS** before every command was confusing and in some cases wrong. just group by section
+- ip address was wrong
+- use code blocks instead of inline code
+- $REMOTE_IP was used inconsistently and sometimes had an actual IP address after
