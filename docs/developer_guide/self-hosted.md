@@ -235,7 +235,7 @@ NOTE : Currently this is very hands-on implementation for the backup, please fee
        - Replace the `"$REMOTE_IP"` with the actual ip also 
        - Replace the `"$FILENAME"` with the actual filename
        - Replace the `"$LOCAL_DIR"` with the path of dir where you want to copy the save (Backup) file in your local machine.
-     - `scp root@"$REMOTE_IP"4:/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"`
+     - `scp root@"$REMOTE_IP":/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"`
 
 
  
