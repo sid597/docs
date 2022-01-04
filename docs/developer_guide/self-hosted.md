@@ -187,12 +187,12 @@ NOTE : Currently this is very hands-on implementation for the backup, please fee
       - Compile and create save-load cli uberjar
         - `yarn cli:compile`
         - `yarn cli:uberjar`
-      - **RS:** get the remote server address e.g 123.456.78.9
+      - **RS:** get the remote server address e.g `123.456.78.9`
       - **RS:** send the compiled uberjar to remote server
-        - NOTE : Replace the "$REMOTE_IP" with the actual remote server address
+        - NOTE : Replace the `"$REMOTE_IP"` with the actual remote server address
         - `scp target/athens-cli.jar root@"$REMOTE_IP":~/athens-cli.jar`
       - **RS:** send `save-cronjob.sh` to remote server
-        - NOTE : Replace the "$REMOTE_IP" with the actual ip
+        - NOTE : Replace the `"$REMOTE_IP"` with the actual ip
         - `scp script/save-cronjob.sh root@"$REMOTE_IP":save-cronjob.sh `
       - **RS:** ssh into the remote server 
         - **RS** ssh `root@"$REMOTE_IP"`
