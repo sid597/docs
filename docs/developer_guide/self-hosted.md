@@ -174,7 +174,7 @@ NOTE : Currently this is very hands-on implementation for the backup, please fee
 
 ### Prequisetes
   To use backup one needs to have:
-   - Athens github repo
+   - Athens cloned github repo
    - A cloud server e.g on Digital Ocean, AWS etc.
      - If you are testing out this on local machine then please ignore some of the instructions starting with **RS:** (short for `remote server`) below
    - A running athens server
@@ -190,10 +190,10 @@ NOTE : Currently this is very hands-on implementation for the backup, please fee
       - **RS:** get the remote server address e.g 123.456.78.9
       - **RS:** send the compiled uberjar to remote server
         - NOTE : Replace the "$REMOTE_IP" with the actual remote server address
-        - `rsync -xhavz --stats target/athens-cli.jar root@"$REMOTE_IP":~/athens-cli.jar`
+        - `scp target/athens-cli.jar root@"$REMOTE_IP":~/athens-cli.jar`
       - **RS:** send `save-cronjob.sh` to remote server
         - NOTE : Replace the "$REMOTE_IP" with the actual ip
-        - `rsync -avzh script/save-cronjob.sh root@"$REMOTE_IP"167.71.33.149:save-cronjob.sh `
+        - `scp script/save-cronjob.sh root@"$REMOTE_IP":save-cronjob.sh `
       - **RS:** ssh into the remote server 
         - **RS** ssh `root@"$REMOTE_IP"`
         - **RS:** Do `ls` to check if `athens-cli.jar` and `save-cronjob.sh` files are present on the remote server, if not please 
@@ -235,7 +235,7 @@ NOTE : Currently this is very hands-on implementation for the backup, please fee
        - Replace the "$REMOTE_IP" with the actual ip also 
        - Replace the "$FILENAME" with the actual filename
        - Replace the "$LOCAL_DIR" with the path of dir where you want to copy the save (Backup) file in your local machine.
-     - `rsync -avzh root@"$REMOTE_IP"46.101.61.240:/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"`
+     - `scp root@"$REMOTE_IP"4:/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"`
 
 
  
