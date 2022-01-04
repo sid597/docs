@@ -170,15 +170,13 @@ Once your droplet has been created, open the console to ssh to the server, follo
 
 ## Backup your server
 
-The backup is very hands-on. Please feel free to ask questions in our Discord server or reach out to jeff@athensresearch.org if you are interested in a hosted version as a service.
+The backup method is currently an MVP. Please feel free to reach out on Discord or through info@athensresearch.org for help, feedback, and questions.
 
 We call "Backups" "Save-Load" because our backups have 2 parts: saving/backing up and loading/restoring.
 
-### Prerequisites
-
 To backup your server, you need to have:
 - An [Athens repo](https://github.com/athensresearch/athens) cloned locally. We refer to this as **LC**, short for `local computer`, below.
-- A cloud server, for instance, hosted on [DigitalOcean](#digitalocean). We refer to this as **RS** short for `remote server`, below.
+- A cloud server, for instance, hosted on [DigitalOcean](#digitalocean), and `ssh` access to it. We refer to this as **RS** short for `remote server`, below.
 
 ### Save (Backup) Your Server
 
@@ -186,37 +184,47 @@ To backup your Athens server you need to the following steps:
 
 **LC**
 
-- Clone Athens on your local computer
+Clone Athens on your local computer.
 
-```git clone git@github.com:athensresearch/athens.git```
+```
+git clone git@github.com:athensresearch/athens.git
+```
 
-- Go to Athens folder
+Go to the Athens folder.
 
-```cd athens```
+```
+cd athens
+```
 
-- Compile the `save-load` command line utility.
+Compile the `save-load` command line utility.
+
 ```
 yarn cli:compile
 yarn cli:uberjar
 ```
+
 **RS**
 
-- Get the **remote server** address e.g `123.456.78.9`
-- Send the uberjar and script to remote server. Replace `"$REMOTE_IP"` with the actual remote server address.
+Get the **remote server** address e.g `123.456.78.9`
+Send the uberjar and script to remote server. Replace `"$REMOTE_IP"` with the actual remote server address.
 ```
-rsync -xhavz --stats target/athens-cli.jar root@"$REMOTE_IP":~/athens-cli.jar
-rsync -avzh script/save-cronjob.sh root@"$REMOTE_IP"167.71.33.149:save-cronjob.sh
+scp target/athens-cli.jar root@"$REMOTE_IP":~/athens-cli.jar
+scp script/save-cronjob.sh root@"$REMOTE_IP"~/:save-cronjob.sh
 ```
 **LC**
-- ssh into the remote server
+
+ssh into the remote server
 ```
 ssh root@"$REMOTE_IP"
 ```
 
-- Check to see if `athens-cli.jar` and `save-cronjob.sh` files are present on the remote server
+Check to see if `athens-cli.jar` and `save-cronjob.sh` files are present on the remote server
 
 ```
 ls
+```
+
+```
 # expected output
 ```
 
@@ -224,43 +232,70 @@ Set up an hourly cronjob for the Save (Backup). This involves using crontab, a t
 
 Backups are stored to the `/var/lib/athens/backups/` folder.
 
-- Open the crontab terminal user interface, which also contains documentation on its time parameters.
+Open the crontab terminal user interface, which also contains documentation on its time parameters.
 ```
 crontab -e
 ```
-- Add the following line to the file: `0 */1 * * * ~/save-cronjob.sh`
-- To change the frequency of the backups, change the cronjob parameters accordingly, following the cronjob documentation shown after running `crontab -e`.
-- After at least an hour, check that backups are happening by going to `/var/lib/athens/backups/`.
+Add the following line to the file: `0 */1 * * * ~/save-cronjob.sh`
 
-### Load (Restore) your server from one of the backups
+To change the frequency of the backups, change the cronjob parameters accordingly, following the cronjob documentation shown after running `crontab -e`.
+
+After at least an hour, check that backups are happening:
+
+```
+ls -l /var/lib/athens/backups/
+```
+
+You should see a list of files such as:
+```
+-rw-r--r-- 1 root root 10785081 Jan  4 12:01 2022-01-04-12-00.edn
+-rw-r--r-- 1 root root 10785858 Jan  4 13:01 2022-01-04-13-00.edn
+```
+
+### Load (Restore) Your Server
 
 **LC**
-- ssh into the remote server.
 
-```ssh root@"$REMOTE_IP"```
+ssh into the remote server.
+
+```
+ssh root@"$REMOTE_IP"
+```
 
 **RS**
 
 Stop the Athens server.
 
-```docker-compose stop athens```
+```
+docker-compose stop athens
+```
 
 Find the file that you want to restore from.
 
 ```
-ls /var/lib/athens/backups
+ls -l /var/lib/athens/backups
 ```
 
 You should see a list of files such as:
 ```
+-rw-r--r-- 1 root root 10785081 Jan  4 12:01 2022-01-04-12-00.edn
+-rw-r--r-- 1 root root 10785858 Jan  4 13:01 2022-01-04-13-00.edn
+-rw-r--r-- 1 root root 10792868 Jan  4 14:01 2022-01-04-14-00.edn
 ```
 
-Load the file to Athens server `yarn cli:load -f "$FILENAME"` (Replace `"$FILENAME` with the correct filename)
-   - Follow the instructions outputted by the above command.
-   - Restart the Athens server `docker-compose start athens`
-   - If you are not able to load (Restore) the file please go through the steps again and if the problem still exists then let us know in our Discord server.
+Load the file to Athens server, replacing `"$FILENAME` with the correct filename.
 
-### Get the Saved (Backed up) to your local machine
+```
+yarn cli:load -f "$FILENAME"
+```
+
+Follow the instructions outputted by the above command.
+
+Restart the Athens server
+```docker-compose start athens```
+If you are not able to load (Restore) the file please go through the steps again and if the problem still exists then let us know in our Discord server.
+
+### Copy Your Backup to Your Local Machine
 
 Here we assume that you have gone through the Save (Backup) process
 
@@ -272,26 +307,23 @@ ssh into the remote server
 ssh root@"$REMOTE_IP"
 ```
 
-Go to `/var/lib/athens/backups` and find the name of file you want to get.
+Find the name of file you want to get.
 
 ```
-ls /var/lib/athens/backups
+ls -l /var/lib/athens/backups
 ```
 
-Log out of the server: `ctrl-d`
-
-Get the server log to local machine
-  + Replace the "$REMOTE_IP" with the actual ip also 
-  + Replace the "$FILENAME" with the actual filename
-  + Replace the "$LOCAL_DIR" with the path of dir where you want to copy the save (Backup) file in your local machine.
+You should see a list of files such as:
+```
+-rw-r--r-- 1 root root 10785081 Jan  4 12:01 2022-01-04-12-00.edn
+-rw-r--r-- 1 root root 10785858 Jan  4 13:01 2022-01-04-13-00.edn
+-rw-r--r-- 1 root root 10792868 Jan  4 14:01 2022-01-04-14-00.edn
+```
+Get the server log to local machine.
+* Replace `"$REMOTE_IP"` with the actual IP
+* Replace `"$FILENAME"` with the actual filename.
 
 ```
-rsync -avzh root@"$REMOTE_IP":/var/lib/athens/backups/"$FILENAME" "$LOCAL_DIR"
+scp root@"$REMOTE_IP":/var/lib/athens/backups/"$FILENAME" ./
 ```
 
-- use `scp` instead of `rsync`
-- next time reformat outliner to document
-- the **RS** before every command was confusing and in some cases wrong. just group by section
-- ip address was wrong
-- use code blocks instead of inline code
-- $REMOTE_IP was used inconsistently and sometimes had an actual IP address after
