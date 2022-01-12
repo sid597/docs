@@ -286,7 +286,7 @@ You should see a list of files such as:
 Load the file to Athens server, replacing `"$FILENAME` with the correct filename.
 
 ```
-yarn cli:load -f "$FILENAME"
+java -jar ~/athens-cli.jar load -f "$FILENAME"
 ```
 
 Follow the instructions outputted by the above command.
